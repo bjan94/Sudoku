@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sudoku</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename="js/jquery-3.2.1.min.js") }}"></script>
+    <script src="{{ url_for('static', filename='js/game.js') }}"></script>
+    <script>
+        // form validation
+		function validateLogin() {
+			var id = $("#loginUser").val();
+			var password = $("#loginPassword").val();
+			if (id == "") {
+				$("#errormsg").html("You need to provide valid username");
+				return false;
+			} else if (password == "") {
+				$("#errormsg").html("You must input password");
+				return false;
+			}
+		}
+
+		function validateSignup() {
+			var id = $("#loginUser").val();
+			var password = $("#loginPassword").val();
+			var email = $("#loginEmail").val();
+			var name = $("#fullname").val();
+			if (id == "") {
+				$("#errormsg").html("You must provide username");
+				return false;
+			} else if (password == "") {
+				$("#errormsg").html("You must provide password");
+				return false;
+			} else if (email == "") {
+				$("#errormsg").html("You must provide email");
+				return false;
+			} else if (name == "") {
+				$("#errormsg").html("You must provide name");
+				return false;
+			}
+		}
+    </script>
+    {% block body %}{% endblock %}

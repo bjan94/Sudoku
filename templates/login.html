@@ -1,0 +1,26 @@
+{% extends "loginheader.html" %}
+{% block body %}
+    <div class="jumbotron">
+        <div class="container col-xs-6">
+            <h2>Sudoku</h2>
+            <form action="/main" method="get" id="loginform" role="form" onsubmit="return validateLogin()">
+              <div class="form-group">
+                <label for="loginUser">User Name</label>
+                <input type="text" class="form-control" id="loginUser" name="username" placeholder="Your User Name Here">
+              </div>
+              <div class="form-group">
+                <label for="loginPassword">Password</label>
+                <input type="password" class="form-control" id="loginPassword" name="password" placeholder="Password">
+              </div>
+              <div id="errormsg" style="color:red">
+              </div>
+              <div id="buttongroup" class="form-group">
+                  <button type="submit" class="btn btn-primary">Login</button>
+                  <a href="/signup" role="button" class="btn btn-success">Sign up</a>
+              </div>
+            </form>
+            <div class="form-text text-muted">Authors: Byung Joon An, Whi Jin Park</div>
+        </div>
+    </div>
+{% endblock %}
+</html>

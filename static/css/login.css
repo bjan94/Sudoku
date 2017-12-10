@@ -1,0 +1,33 @@
+.jumbotron {
+	display:flex;
+	align-items: center;
+	width: 50%;
+	height: 60%;
+	position: fixed;
+	left: 25%;
+	top: 10%;
+}
+
+.container {
+	align-items: center;
+	height: 100%;
+}
+
+
+#loginform {
+   display:inline-block;
+   width: 75%;
+   margin-top: 5%;
+}
+
+.text-muted {
+	margin-top: 1em;
+}
+
+button {
+	margin-right: 0.5em;
+}
+
+#buttongroup {
+	margin-top: 1em;
+}
