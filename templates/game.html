@@ -3,13 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <title>Sudoku</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/board.css') }}">
     <script type="text/javascript" src="{{ url_for('static', filename="js/jquery-3.2.1.min.js") }}"></script>
     <script src="{{ url_for('static', filename='js/game.js') }}"></script>
 </head>
 <body>
-
-<h1>THIS IS THE GAME PAGE</h1>
-
-
+<table class="table-main">
+    <tbody>
+        {% for row in range(3) %}
+            <tr>
+                {% for col in range(3) %}
+                    <td>
+                        <table class = "table-inner" id="table{{ row|string + col|string }}">
+                            {% set col = col * 3 %}
+                            {% set col_offset = 1 %}
+                            <tbody>
+                                <tr>
+                                    {% set row = row * 3 %}
+                                    <td id="{{ (row|string) + (col * col_offset)|string }}">1</td>
+                                    <td id="{{ (row|string) + (col * col_offset + 1)|string }}">2</td>
+                                    <td id="{{ (row|string) + (col * col_offset + 2)|string }}">3</td>
+                                </tr>
+                                <tr>
+                                    {% set row = row + 1 %}
+                                    <td id="{{ (row|string) + (col * col_offset)|string }}">4</td>
+                                    <td id="{{ (row|string) + (col * col_offset + 1)|string }}">5</td>
+                                    <td id="{{ (row|string) + (col * col_offset + 2)|string }}">6</td>
+                                </tr>
+                                <tr>
+                                    {% set row = row + 1 %}
+                                    <td id="{{ (row|string) + (col * col_offset)|string }}">7</td>
+                                    <td id="{{ (row|string) + (col * col_offset + 1)|string }}">8</td>
+                                    <td id="{{ (row|string) + (col * col_offset + 2)|string }}">9</td>
+                                </tr>
+                          </tbody>
+                        </table>
+                    </td>
+                    {% set col_offset = col_offset + 1 %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+  </tbody>
+</table>
 </body>
 </html>

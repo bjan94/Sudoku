@@ -1,0 +1,17 @@
+table, th, td {
+    border: 1px solid black;
+    text-align: center;
+}
+
+.table-main {
+    height: 500px;
+    width: 500px;
+    position: relative;
+    margin: auto auto;
+    margin-top: 10%;
+}
+
+.table-inner {
+    height: 100%;
+    width: 100%;
+}

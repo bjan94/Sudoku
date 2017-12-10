@@ -29,14 +29,11 @@
 			if (id == "") {
 				$("#errormsg").html("You must provide username");
 				return false;
-			} else if (password == "") {
-				$("#errormsg").html("You must provide password");
-				return false;
-			} else if (email == "") {
-				$("#errormsg").html("You must provide email");
-				return false;
 			} else if (name == "") {
 				$("#errormsg").html("You must provide name");
+				return false;
+			} else if (password == "") {
+				$("#errormsg").html("You must provide password");
 				return false;
 			}
 		}
