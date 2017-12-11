@@ -19,9 +19,15 @@ class SudokuTest(unittest.TestCase):
         # self.assertFalse(in_box(4, 5, 6, self.sample_board))
         pass
 
-    def test_generate(self):
-        generated_board = generate_game()
-        print_board(generated_board)
+    def test_solve(self):
+        if solve():
+            print_board()
+        else:
+            print("Incorrect")
+
+    # def test_generate(self):
+    #     generated_board = generate_game()
+    #     print_board(generated_board)
 
 
 def main():

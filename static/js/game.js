@@ -1,9 +1,24 @@
-var selected;
+var selected, number;
 $(document).ready(function() {
-   selected = undefined;
-   $(".table-inner td").on('click', function() {
-      toggle($(this));
-   });
+    selected = undefined;
+    number = undefined;
+
+    $(".table-inner tr td").each(function(index, element) {
+        if ($(this).text()) {
+            $(this).css('background-color', '#A9C1C3');
+        }
+    });
+
+    $(".table-inner td").on('click', function() {
+        if ($(this).text() == '') {
+            toggle($(this));
+        }
+    });
+
+    $(".btn-secondary").on('click', function() {
+       number = $(this).text();
+       // $(this).toggleClass("btn-secondary btn-primary");
+    });
 });
 
 function toggle(element) {
@@ -11,6 +26,14 @@ function toggle(element) {
       untoggle(selected);
    }
    selected = element;
+
+   if (number != undefined) {
+       selected.text(number);
+       number = undefined;
+   } else {
+       untoggle(selected);
+   }
+
    element.css('background-color', '#3D9EFD');
 }
 

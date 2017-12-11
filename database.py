@@ -19,6 +19,7 @@ response = table.get_item(
 item = response['Item']
 print(item)
 
+
 def add_user(id, pw, fullname) :
     table.put_item(
         Item={
@@ -28,9 +29,10 @@ def add_user(id, pw, fullname) :
         }
     )
 
+
 def user_login(username) :
     pw = table.get_item(
-        Key = {
+        Key={
             'user': username
         }
     )

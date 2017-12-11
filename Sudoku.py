@@ -1,14 +1,17 @@
 from flask import Flask, render_template, request, redirect, flash, url_for, session
 import database as db
+import Game as game
 
 app = Flask(__name__, static_url_path='/static')
 app.config['DEBUG'] = True
+app.jinja_env.trim_blocks = True
+app.jinja_env.lstrip_blocks = True
 app.secret_key = 'secret key'
 
 @app.route('/', methods=['GET'])
 def index():
     if request.method == 'GET' :
-        return render_template('login.html', msg = None)
+        return render_template('login.html', msg=None)
 
 
 @app.route('/login', methods=['POST'])
@@ -37,7 +40,8 @@ def game_page():
     if 'username' not in session :
         flash('log in first to play Sudoku!')
         return redirect(url_for('index'))
-    return render_template('game.html')
+    board = game.get_game(1)
+    return render_template('game.html', board=board)
 
 
 if __name__ == '__main__':

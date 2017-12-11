@@ -1,14 +1,15 @@
 from random import seed, shuffle, random
 import numpy as np
-import sys
+from Puzzles import *
 """
 Game logic
 
 """
 game_board = []
+game_board = p11
 np.random.seed(42)
 numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-sys.setrecursionlimit(30000)
+
 
 def generate_empty_game():
     global game_board
@@ -22,25 +23,6 @@ def generate_empty_game():
 
 
 def generate_game():
-    global game_board
-    game_board = generate_empty_game()
-    shuffled = np.copy(numbers)
-    np.random.shuffle(shuffled)
-
-    # Top Left box is just shuffled array
-    for i in range(3):
-        for j in range(3):
-            game_board[i][j] = shuffled[i + j]
-    #
-    # # Fill the rest of the grid
-    # for i in range(3):
-    #     for j in range(3):
-    #         if i == 0 and j == 0:
-    #             continue
-    #         else:
-    #             fill_box(i, j)
-    solve()
-
     return game_board
 
 
@@ -80,26 +62,17 @@ def solve():
 
 def in_row(row, val):
     global game_board
-    x = set()
-    for i in range(9):
-        if row == i:
-            continue
-        elif val in x:
-            return True
-        x.add(game_board[row][i])
+    line = game_board[row]
 
-    return False
+    return val in line
 
 
 def in_col(col, val):
     global game_board
-    x = set()
+
     for i in range(9):
-        if col == i:
-            continue
-        elif val in x:
+        if game_board[i][col] == val:
             return True
-        x.add(game_board[i][col])
 
     return False
 
@@ -125,6 +98,13 @@ def in_box(row, col, val):
 
 def is_valid(row, col, val):
     return not in_box(row, col, val) and not in_col(col, val) and not in_row(row, val)
+
+
+def get_game(number):
+    global game_board
+    game_board = problemSet[number]
+    return game_board
+
 
 def print_board(board=game_board):
     for i in range(9):
