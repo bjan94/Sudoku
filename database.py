@@ -1,8 +1,6 @@
 import boto3
+from Config import ACCESS_SECRET_KEY, ACCESS_KEY_ID, REGION_NAME
 
-ACCESS_KEY_ID = 'AKIAJZHAPZRIRTBEQU4A'
-ACCESS_SECRET_KEY = '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'
-REGION_NAME = 'us-east-1'
 
 dynamodb = boto3.resource('dynamodb',
                           aws_access_key_id = ACCESS_KEY_ID,
