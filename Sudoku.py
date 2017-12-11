@@ -1,15 +1,35 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, flash, url_for
+import database as db
 
 app = Flask(__name__, static_url_path='/static')
 app.config['DEBUG'] = True
+app.secret_key = 'secret key'
 
-@app.route('/')
-def hello_world():
-    return render_template('login.html')
+@app.route('/', methods=['GET'])
+def index():
+    if request.method == 'GET' :
+        return render_template('login.html', msg = None)
 
-@app.route('/signup')
+
+@app.route('/login', methods=['POST'])
+def log_in() :
+    pw = db.user_login(request.form.get('username', None))
+    if pw == request.form.get('password') :
+        return redirect('/main')
+
+    flash("wrong login info")
+    return redirect(url_for('index'))
+
+@app.route('/signup', methods=['GET', 'POST'])
 def sign_up():
-    return render_template('signup.html')
+    if request.method == 'GET' :
+        return render_template('signup.html')
+    else :
+        username = request.form.get('username', None)
+        fullname = request.form.get('fullname', None)
+        password = request.form.get('password', None)
+        db.add_user(username, password, fullname)
+        return redirect('/')
 
 @app.route('/main')
 def game_page():

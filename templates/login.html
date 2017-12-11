@@ -3,7 +3,7 @@
     <div class="jumbotron">
         <div class="container col-xs-6">
             <h2>Sudoku</h2>
-            <form action="/main" method="get" id="loginform" role="form" onsubmit="return validateLogin()">
+            <form action="/login" method="POST" id="loginform" role="form" onsubmit="return validateLogin()">
               <div class="form-group">
                 <label for="loginUser">User Name</label>
                 <input type="text" class="form-control" id="loginUser" name="username" placeholder="Your User Name Here">
@@ -13,6 +13,13 @@
                 <input type="password" class="form-control" id="loginPassword" name="password" placeholder="Password">
               </div>
               <div id="errormsg" style="color:red">
+                 {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p class=flashes>{{ message }}</p>
+                        {% endfor %}
+                    {% endif %}
+                 {% endwith %}
               </div>
               <div id="buttongroup" class="form-group">
                   <button type="submit" class="btn btn-primary">Login</button>
