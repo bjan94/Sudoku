@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, flash, url_for
+from flask import Flask, render_template, request, redirect, flash, url_for, session
 import database as db
 
 app = Flask(__name__, static_url_path='/static')
@@ -15,6 +15,7 @@ def index():
 def log_in() :
     pw = db.user_login(request.form.get('username', None))
     if pw == request.form.get('password') :
+        session['username'] = request.form.get('username', None)
         return redirect('/main')
 
     flash("wrong login info")
@@ -33,6 +34,9 @@ def sign_up():
 
 @app.route('/main')
 def game_page():
+    if 'username' not in session :
+        flash('log in first to play Sudoku!')
+        return redirect(url_for('index'))
     return render_template('game.html')
 
 
