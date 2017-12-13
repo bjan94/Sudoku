@@ -16,9 +16,14 @@ def index():
 
 @app.route('/login', methods=['POST'])
 def log_in() :
-    pw = db.user_login(request.form.get('username', None))
-    if pw == request.form.get('password') :
-        session['username'] = request.form.get('username', None)
+    username = request.form.get('username', None)
+    pw = db.user_login(username)
+    if (not pw) :
+        flash('Incorrect username!')
+        return redirect(url_for('index'))
+
+    if pw == request.form.get('password', None) :
+        session['username'] = username
         return redirect('/main')
 
     flash("wrong login info")

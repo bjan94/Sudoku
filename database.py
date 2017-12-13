@@ -36,4 +36,7 @@ def user_login(username) :
             'user': username
         }
     )
-    return pw['Item']['password']
+    if 'Item' in pw :
+        return pw['Item']['password']
+    else :
+        return None
