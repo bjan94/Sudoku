@@ -36,14 +36,16 @@ def sign_up():
         return render_template('signup.html')
     else :
         username = request.form.get('username', None)
-        fullname = request.form.get('fullname', None)
+        fullname = request.form.get('name', None)
         password = request.form.get('password', None)
-        db.add_user(username, password, fullname)
+        if (username != None and fullname != None and password != None) :
+            db.add_user(username, password, fullname)
+            session['username'] = username
+            session['name'] = fullname
+            return redirect('/main')
 
-        session['username'] = username
-        session['name'] = fullname
-
-        return redirect('/main')
+        flash("you must complete all of the fields")
+        return redirect(url_for('sign_up'))
 
 @app.route('/main')
 def game_page():
