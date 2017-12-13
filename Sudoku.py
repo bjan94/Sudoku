@@ -39,7 +39,11 @@ def sign_up():
         fullname = request.form.get('fullname', None)
         password = request.form.get('password', None)
         db.add_user(username, password, fullname)
-        return redirect('/')
+
+        session['username'] = username
+        session['name'] = fullname
+
+        return redirect('/main')
 
 @app.route('/main')
 def game_page():
@@ -47,6 +51,7 @@ def game_page():
         flash('log in first to play Sudoku!')
         return redirect(url_for('index'))
     board = game.get_game(1)
+    print(session['username'])
     return render_template('game.html', board=board)
 
 

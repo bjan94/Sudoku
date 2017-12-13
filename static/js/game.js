@@ -69,7 +69,7 @@ function toggleButton(element) {
 function fillNumber(selected, num) {
     if (num != 0) {
         selected.text(num);
-    } else {
+    } else { // delete button
         selected.text('');
     }
 
