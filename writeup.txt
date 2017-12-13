@@ -1,0 +1,22 @@
+-- Modules used (with non-exhaustive line number references) --
+Flask, boto3 (dynamodb), numpy (random, copy, shuffle), itertools (generator)
+
+
+-- Name and location of custom class --
+Game.py (root), Puzzles.py (root), database.py (root), Config.py (root)
+
+-- Location and description of generator or decorator --
+** Whi write this
+
+
+-- Brief synopsis of your project's features --
+Our project is the web sudoku app, in which users can sign up and log in to play the sudoku game. From the pre-loaded puzzles, users will notice that the puzzles get harder as progress is made. When users log out, the user's progress is saved to the last completed puzzle. 
+
+Users can also request a hint, which will trigger the solver algorithm that we have developed, and it will return a proper answer on a blank tile. When user puts a bad input on a tile (same in row, same in col, same in box), an error message shows up, along with highlighting the bad tile.
+
+-- How to launch / operate your project --
+First, you need to configure your `Config.py` to your AWS Dynamodb credential. Afterwards in the directory of `Sudoku.py`, run `$ export FLASK_APP=Sudoku.py`. Then `flask run` to start the server.
+
+By default, the server will start at localhost:5000, and from there, you can log in or sign up to start playing the game.
+
+-- Additional notes --
