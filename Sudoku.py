@@ -30,6 +30,7 @@ def log_in() :
     flash("wrong login info")
     return redirect(url_for('index'))
 
+
 @app.route('/signup', methods=['GET', 'POST'])
 def sign_up():
     if request.method == 'GET' :
@@ -45,14 +46,16 @@ def sign_up():
 
         return redirect('/main')
 
+
 @app.route('/main')
 def game_page():
     if 'username' not in session :
         flash('log in first to play Sudoku!')
         return redirect(url_for('index'))
     board = game.get_game(1)
-    print(session['username'])
-    return render_template('game.html', board=board)
+
+    return render_template('game.html',
+                           fullname=session['name'], board=board)
 
 
 @app.route('/validate', methods=['POST'])
