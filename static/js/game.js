@@ -81,7 +81,6 @@ function fillNumber(selected, num) {
 
     number = undefined;
     numButton = undefined;
-    untoggleBox(selected);
 }
 
 function changeBoard() {
@@ -89,17 +88,24 @@ function changeBoard() {
     var i = index.split('')[0];
     var j = index.split('')[1];
 
-    validate(i, j, number);
+    validate(i, j, number, function() {
+        untoggleBox(selected);
+    });
 }
 
 function untoggleBox(element) {
-   element.css('background-color', 'white');
-   selected = undefined;
+    if ($("#game-message").hasClass('alert-danger')) {
+        element.css('background-color', '#F8D7DB');
+    } else {
+        console.log('here');
+        element.css('background-color', 'white');
+    }
+
+    selected = undefined;
 }
 
-function validate(i, j, val) {
+function validate(i, j, val, callback) {
     sendData = {i: i, j: j, val: val};
-
     $.post('/validate', sendData, function(response) {
         if (response.success) {
             $('#game-message').text('');
@@ -108,5 +114,5 @@ function validate(i, j, val) {
             $('#game-message').addClass('alert-danger');
             $('#game-message').text('Incorrect placement. Try Again');
         }
-    });
+    }).done(callback);
 }
