@@ -6,11 +6,12 @@ Flask, boto3 (dynamodb), numpy (random, copy, shuffle), itertools (generator)
 Game.py (root), Puzzles.py (root), database.py (root), Config.py (root)
 
 -- Location and description of generator or decorator --
-** Whi write this
+We used a generator to access a specific sudoku grid from a list of grids, as it is used with iter.islice function. The reason we have decided to use
+the generator for this feature is that generator is memory efficient and does not execute unless called.
 
 
 -- Brief synopsis of your project's features --
-Our project is the web sudoku app, in which users can sign up and log in to play the sudoku game. From the pre-loaded puzzles, users will notice that the puzzles get harder as progress is made. When users log out, the user's progress is saved to the last completed puzzle. 
+Our project is the web sudoku app, in which users can sign up and log in to play the sudoku game. From the pre-loaded puzzles, users will notice that the puzzles get harder as progress is made. When users log out, the user's progress is saved to the last completed puzzle.
 
 Users can also request a hint, which will trigger the solver algorithm that we have developed, and it will return a proper answer on a blank tile. When user puts a bad input on a tile (same in row, same in col, same in box), an error message shows up, along with highlighting the bad tile.
 
@@ -20,3 +21,5 @@ First, you need to configure your `Config.py` to your AWS Dynamodb credential. A
 By default, the server will start at localhost:5000, and from there, you can log in or sign up to start playing the game.
 
 -- Additional notes --
+We have spent a bulk of time developing the solver for a given uniquely solvable sudoku grid. We have completed this task before the submission
+on Monday, and have added some pages(urls) and changed some existing features to apply this on server.

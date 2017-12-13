@@ -165,6 +165,7 @@ function submit() {
      });
      if (correct == 1) {
         $.get('/puzzleSolved', function() {
+            alert("Congratulations! Now you are on next level");
             location.reload(true);
         });
      } else {
