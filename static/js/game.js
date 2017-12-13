@@ -1,4 +1,4 @@
-var selected, number;
+var selected, number, numButton;
 $(document).ready(function() {
     selected = undefined;
     number = undefined;
@@ -6,42 +6,79 @@ $(document).ready(function() {
     $(".table-inner tr td").each(function(index, element) {
         if ($(this).text()) {
             $(this).css('background-color', '#A9C1C3');
-            $(this).addClass('immutable');
+            $(this).addClass('fixed');
         }
     });
 
     $(".table-inner td").on('click', function() {
-        if ($(this).text() == '' && number != 'delete') {
-            toggle($(this));
-        } else if ((!$(this).hasClass('immutable')) && number == 'delete') {
-            number = '';
-            toggle($(this));
-        }
+         if (!$(this).hasClass('fixed')) {
+             toggleBox($(this));
+         }
     });
 
     $(".btn-secondary").on('click', function() {
-        number = $(this).text();
-        // $(this).toggleClass("btn-secondary btn-primary");
+        toggleButton($(this));
     });
+
+
+
 });
 
+function toggleBox(element) {
+    if (selected != undefined && selected != element) {
+        untoggleBox(selected);
+    }
+    selected = element;
+    element.css('background-color', '#3D9EFD');
 
-function toggle(element) {
-   if (selected != undefined && selected != element) {
-      untoggle(selected);
-   }
-   selected = element;
-
-   if (number != undefined) {
-       selected.text(number);
-       number = undefined;
-   } else {
-       untoggle(selected);
-   }
-
-   element.css('background-color', '#3D9EFD');
+    if (number != undefined) {
+        fillNumber(selected, number, validate);
+    }
 }
 
-function untoggle(element) {
-    element.css('background-color', 'white');
+function toggleButton(element) {
+    number = element.text();
+
+    if (element.attr('id') == 'delete') {
+        number = 0;
+    }
+
+    if (numButton) {
+        numButton.toggleClass("btn-primary btn-secondary");
+    }
+
+    element.toggleClass("btn-secondary btn-primary");
+    numButton = element;
+
+    if (selected) {
+        fillNumber(selected, number, validate);
+    }
+}
+
+function untoggleBox(element) {
+   element.css('background-color', 'white');
+   selected = undefined;
+}
+
+function fillNumber(selected, num, callback) {
+    if (num != 0) {
+        selected.text(num);
+    } else {
+        selected.text('');
+    }
+
+    untoggleBox(selected);
+
+    if (numButton) {
+        numButton.toggleClass("btn-primary btn-secondary");
+    }
+
+    number = undefined;
+    numButton = undefined;
+
+    callback();
+}
+
+function validate() {
+    // console.log(table)
 }

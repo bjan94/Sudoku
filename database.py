@@ -25,7 +25,8 @@ def add_user(id, pw, fullname) :
         Item={
             'user': id,
             'password': pw,
-            'fullname': fullname
+            'fullname': fullname,
+            'progress': 0
         }
     )
 

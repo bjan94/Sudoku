@@ -6,7 +6,6 @@ Game logic
 
 """
 game_board = []
-game_board = p11
 np.random.seed(42)
 numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
@@ -107,6 +106,12 @@ def get_game(number):
     global game_board
     game_board = problemSet[number]
     return game_board
+
+
+def set_board(board):
+    global game_board
+    game_board = board
+    return
 
 
 def print_board(board=game_board):

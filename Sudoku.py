@@ -49,5 +49,12 @@ def game_page():
     return render_template('game.html', board=board)
 
 
+@app.route('/validate', methods=['POST'])
+def validate():
+    board = []
+
+    game.set_board()
+
+
 if __name__ == '__main__':
     app.run(debug=True)
