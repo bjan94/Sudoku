@@ -72,5 +72,15 @@ def validate():
         return jsonify(success=False)
 
 
+@app.route('/gethint', methods=['POST'])
+def hint():
+    i = int(request.form['i'])
+    j = int(request.form['j'])
+
+    solved = game.return_solved()
+
+    return jsonify(answer=str(solved[i][j]))
+
+
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,11 +1,12 @@
-from random import seed, shuffle, random
 import numpy as np
 from Puzzles import *
 """
 Game logic
 
 """
+original = []
 game_board = []
+backup = []
 np.random.seed(42)
 numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
@@ -24,27 +25,8 @@ def generate_empty_game():
     return game_board
 
 
-def generate_game():
-    return game_board
-
-
-def fill_box(row_offset, col_offset):
-    global game_board
-    start_row = row_offset * 3
-    start_col = col_offset * 3
-    shuffled = np.copy(numbers)
-    np.random.shuffle(shuffled)
-
-    for i in range(3):
-        for j in range(3):
-            for val in shuffled:
-                if is_valid(start_row + i, start_col + j, val):
-                    game_board[start_row + i][start_col + j] = val
-
-
 def solve():
     global game_board
-
     shuffled = np.copy(numbers)
 
     for i in range(9):
@@ -53,7 +35,6 @@ def solve():
                 for val in shuffled:
                     if is_valid(i, j, val):
                         game_board[i][j] = val
-
                         if solve():
                             return True
                         else:
@@ -103,9 +84,11 @@ def is_valid(row, col, val):
 
 
 def get_game(number):
-    global game_board
-    game_board = problemSet[number]
-    return game_board
+    global original, game_board
+    original = problemSet[number]
+    game_board = np.copy(game_board)
+
+    return original
 
 
 def set_board(board):
@@ -117,3 +100,10 @@ def set_board(board):
 def print_board(board=game_board):
     for i in range(9):
         print(board[i])
+
+
+def return_solved():
+    global game_board
+    game_board = np.copy(original)
+    solve()
+    return game_board

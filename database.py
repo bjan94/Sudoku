@@ -11,14 +11,6 @@ table = dynamodb.Table('sudoku')
 
 print(table.creation_date_time)
 
-response = table.get_item(
-    Key = {
-        'user': 'justin'
-    }
-)
-item = response['Item']
-print(item)
-
 
 def add_user(id, pw, fullname) :
     table.put_item(

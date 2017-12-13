@@ -20,6 +20,12 @@ $(document).ready(function() {
         toggleButton($(this));
     });
 
+    $(".btn-success").on('click', function() {
+        getHint(function(index) {
+            $(index).css('background-color', '#8EFA00');
+        });
+    });
+
 
     board = []
     for (var i = 0; i < 9; i++) {
@@ -67,12 +73,11 @@ function toggleButton(element) {
 }
 
 function fillNumber(selected, num) {
-    if (num != 0) {
+    if (num > 0) {
         selected.text(num);
-    } else { // delete button
+    } else if (num == 0) { // delete button
         selected.text('');
     }
-
     changeBoard();
 
     if (numButton) {
@@ -87,6 +92,8 @@ function changeBoard() {
     var index = selected.attr('id');
     var i = index.split('')[0];
     var j = index.split('')[1];
+
+    board[parseInt(i)][parseInt(j)] = number;
 
     validate(i, j, number, function() {
         untoggleBox(selected);
@@ -114,4 +121,28 @@ function validate(i, j, val, callback) {
             $('#game-message').text('Incorrect placement. Try Again');
         }
     }).done(callback);
+}
+
+function getHint(callback) {
+    var sendData, i, j;
+    for (var row = 0; row < 9; row++) {
+        for (var col = 0; col < 9; col++) {
+            if (board[row][col] == 0) {
+                i = row;
+                j = col;
+                sendData = {i: row, j: col}
+                break;
+            }
+        }
+    }
+    if (sendData) {
+        var index;
+        $.post('/gethint', sendData, function(response) {
+            index = "#" + i + "" + j;
+            $(index).text(response.answer);
+            board[i][j] = response.answer;
+        }).done(function() {
+            callback(index);
+        });
+    }
 }
