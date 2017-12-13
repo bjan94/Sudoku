@@ -59,7 +59,7 @@ def game_page():
         flash('log in first to play Sudoku!')
         return redirect(url_for('index'))
 
-    #board = game.get_game(1)
+    # board = game.get_game(1)
     board = game.game_generator(int(session['progress']))
     print(board)
     return render_template('game.html',
@@ -94,6 +94,7 @@ def hint():
     solved = game.return_solved()
 
     return jsonify(answer=str(solved[i][j]))
+
 
 @app.route('/logout', methods=['GET'])
 def log_out():

@@ -13,7 +13,11 @@ numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 
 def game_generator(level) :
-    return next(itertools.islice((z for z in problemSet), level, None))
+    global game_board, original
+    original = next(itertools.islice((z for z in problemSet), level, None))
+    game_board = np.copy(original)
+
+    return original
 
 
 def generate_empty_game():
