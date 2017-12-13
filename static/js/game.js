@@ -125,6 +125,7 @@ function validate(i, j, val, callback) {
             $('#game-message').text('');
             $('#game-message').removeClass('alert-danger');
         } else if (val != 0) {
+            console.log('incorrect');
             $('#game-message').addClass('alert-danger');
             $('#game-message').text('Incorrect placement. Try Again');
         }

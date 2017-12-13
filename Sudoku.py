@@ -73,8 +73,11 @@ def validate():
     val = int(request.form['val'])
 
     if game.is_valid(i, j, val):
+        game.set_val(i, j, val)
         return jsonify(success=True)
     else:
+        print(i, j, val)
+        game.set_val(i, j, val)
         return jsonify(success=False)
 
 
@@ -94,6 +97,8 @@ def hint():
     j = int(request.form['j'])
 
     solved = game.return_solved()
+
+    game.set_val(i, j, solved[i][j])
 
     return jsonify(answer=str(solved[i][j]))
 

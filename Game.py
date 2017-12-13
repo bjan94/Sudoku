@@ -85,6 +85,12 @@ def in_box(row, col, val):
     return False
 
 
+def set_val(row, col, val):
+    global game_board
+    game_board[row][col] = val
+    return
+
+
 def is_valid(row, col, val):
     return not in_box(row, col, val) and not in_col(col, val) and not in_row(row, val)
 
