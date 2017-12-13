@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, redirect, flash, url_for, session
+from flask import Flask, render_template, request, redirect, \
+    flash, url_for, session, json, jsonify
 import database as db
 import Game as game
 
@@ -51,9 +52,14 @@ def game_page():
 
 @app.route('/validate', methods=['POST'])
 def validate():
-    board = []
+    i = int(request.form['i'])
+    j = int(request.form['j'])
+    val = int(request.form['val'])
 
-    game.set_board()
+    if game.is_valid(i, j, val):
+        return jsonify(success=True)
+    else:
+        return jsonify(success=False)
 
 
 if __name__ == '__main__':

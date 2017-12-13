@@ -1,4 +1,4 @@
-var selected, number, numButton;
+var selected, number, numButton, board;
 $(document).ready(function() {
     selected = undefined;
     number = undefined;
@@ -21,7 +21,18 @@ $(document).ready(function() {
     });
 
 
-
+    board = []
+    for (var i = 0; i < 9; i++) {
+        board[i] = [];
+        for (var j = 0; j < 9; j++) {
+            var indexId = '#' + i + '' + j;
+            if ($(indexId).text()) {
+                board[i][j] = parseInt($(indexId).text());
+            } else {
+                board[i][j] = 0;
+            }
+        }
+    }
 });
 
 function toggleBox(element) {
@@ -32,7 +43,7 @@ function toggleBox(element) {
     element.css('background-color', '#3D9EFD');
 
     if (number != undefined) {
-        fillNumber(selected, number, validate);
+        fillNumber(selected, number);
     }
 }
 
@@ -51,23 +62,18 @@ function toggleButton(element) {
     numButton = element;
 
     if (selected) {
-        fillNumber(selected, number, validate);
+        fillNumber(selected, number);
     }
 }
 
-function untoggleBox(element) {
-   element.css('background-color', 'white');
-   selected = undefined;
-}
-
-function fillNumber(selected, num, callback) {
+function fillNumber(selected, num) {
     if (num != 0) {
         selected.text(num);
     } else {
         selected.text('');
     }
 
-    untoggleBox(selected);
+    changeBoard();
 
     if (numButton) {
         numButton.toggleClass("btn-primary btn-secondary");
@@ -75,10 +81,31 @@ function fillNumber(selected, num, callback) {
 
     number = undefined;
     numButton = undefined;
-
-    callback();
+    untoggleBox(selected);
 }
 
-function validate() {
-    // console.log(table)
+function changeBoard() {
+    var index = selected.attr('id');
+    var i = index.split('')[0];
+    var j = index.split('')[1];
+
+    validate(i, j, number);
+}
+
+function untoggleBox(element) {
+   element.css('background-color', 'white');
+   selected = undefined;
+}
+
+function validate(i, j, val) {
+    sendData = {i: i, j: j, val: val};
+
+    $.post('/validate', sendData, function(response) {
+        if (response.success) {
+            $('#game-message').text('');
+        } else if (val != 0) {
+            $('#game-message').text('Incorrect placement. Try Again');
+            $('#game-message').css('color', 'red');
+        }
+    });
 }

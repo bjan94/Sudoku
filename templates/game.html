@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/board.css') }}">
     <script type="text/javascript" src="{{ url_for('static', filename="js/jquery-3.2.1.min.js") }}"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <script src="{{ url_for('static', filename='js/game.js') }}">
@@ -68,6 +67,7 @@
                 </tr>
             {% endfor %}
     </table>
+    <p id="game-message"></p>
     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
         <div class="btn-group-vertical">
             <div class="btn-group mr-2" role="group" aria-label="First group">
@@ -88,6 +88,7 @@
                 <button type="button" class="btn btn-secondary">8</button>
                 <button type="button" class="btn btn-secondary">9</button>
             </div>
+            <button type="button" class="btn btn-secondary" id="submit">Submit</button>
         </div>
     </div>
   </tbody>
