@@ -49,18 +49,25 @@ def solve():
     return True
 
 
-def in_row(row, val):
+def in_row(row, col, val):
     global game_board
     line = game_board[row]
+    for i in range(len(line)):
+        if i == col:
+            continue
+        elif line[i] == val:
+            return True
 
-    return val in line
+    return False
 
 
-def in_col(col, val):
+def in_col(row, col, val):
     global game_board
 
     for i in range(9):
-        if game_board[i][col] == val:
+        if i == row:
+            continue
+        elif game_board[i][col] == val:
             return True
 
     return False
@@ -92,7 +99,8 @@ def set_val(row, col, val):
 
 
 def is_valid(row, col, val):
-    return not in_box(row, col, val) and not in_col(col, val) and not in_row(row, val)
+    print(game_board)
+    return not in_box(row, col, val) and not in_col(row, col, val) and not in_row(row, col, val)
 
 
 def get_game(number):
