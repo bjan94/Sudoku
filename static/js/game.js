@@ -19,8 +19,6 @@ $(document).ready(function() {
     $(".btn-secondary").on('click', function() {
         if ($(this).attr('id') == 'submit') { // submit button
             submit();
-        } else if ($(this).attr('id') == 'logout') { //  logout button
-            logout();
         } else {
             toggleButton($(this));
         }
@@ -30,6 +28,10 @@ $(document).ready(function() {
         getHint(function(index) {
             $(index).css('background-color', '#8EFA00');
         });
+    });
+
+    $(".btn-danger").on('click', function() {
+        logout();
     });
 
 
@@ -169,8 +171,9 @@ function submit() {
      }
 }
 
-// function logout() {
-//     $.get('/logout', function() {
-//         location.reload(true);
-//     })
-// }
+function logout() {
+    $.get('/logout', function() {
+        console.log("here");
+        location.reload(true);
+    })
+}

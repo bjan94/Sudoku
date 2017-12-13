@@ -65,6 +65,7 @@ def game_page():
     return render_template('game.html',
                            fullname=session['name'], board=board)
 
+
 @app.route('/validate', methods=['POST'])
 def validate():
     i = int(request.form['i'])
@@ -75,6 +76,7 @@ def validate():
         return jsonify(success=True)
     else:
         return jsonify(success=False)
+
 
 @app.route('/puzzleSolved', methods=['GET'])
 def get_next_puzzle():
