@@ -25,8 +25,7 @@ def add_user(id, pw, fullname) :
         Item={
             'user': id,
             'password': pw,
-            'fullname': fullname,
-            'progress': 0
+            'fullname': fullname
         }
     )
 
@@ -38,6 +37,7 @@ def user_login(username) :
         }
     )
     if 'Item' in pw :
+        print(pw['Item'])
         return pw['Item']['password']
-    else :
+    else:
         return None
