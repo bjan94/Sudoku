@@ -97,7 +97,6 @@ function untoggleBox(element) {
     if ($("#game-message").hasClass('alert-danger')) {
         element.css('background-color', '#F8D7DB');
     } else {
-        console.log('here');
         element.css('background-color', 'white');
     }
 
