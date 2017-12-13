@@ -17,7 +17,13 @@ $(document).ready(function() {
     });
 
     $(".btn-secondary").on('click', function() {
-        toggleButton($(this));
+        if ($(this).attr('id') == 'submit') { // submit button
+            submit();
+        } else if ($(this).attr('id') == 'logout') { //  logout button
+            logout();
+        } else {
+            toggleButton($(this));
+        }
     });
 
     $(".btn-success").on('click', function() {
@@ -146,3 +152,25 @@ function getHint(callback) {
         });
     }
 }
+
+function submit() {
+     var correct = 1;
+     $(".table-inner tr td").each(function(index, element) {
+        if ($(this).hasClass('alert-danger') || $(this).text() == '') {
+            correct = 0;
+        }
+     });
+     if (correct == 1) {
+        $.get('/puzzleSolved', function() {
+            location.reload(true);
+        });
+     } else {
+        alert("Incorrect answer! please try again.");
+     }
+}
+
+// function logout() {
+//     $.get('/logout', function() {
+//         location.reload(true);
+//     })
+// }

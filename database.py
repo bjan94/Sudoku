@@ -17,7 +17,8 @@ def add_user(id, pw, fullname) :
         Item={
             'user': id,
             'password': pw,
-            'fullname': fullname
+            'fullname': fullname,
+            'progress': '0'
         }
     )
 
@@ -30,6 +31,18 @@ def user_login(username) :
     )
     if 'Item' in pw :
         print(pw['Item'])
-        return pw['Item']['password']
+        return pw['Item']
     else:
         return None
+
+def updateLevel(id, currentLevel) :
+    response = table.update_item(
+        Key={
+            'user': id
+        },
+        UpdateExpression="set progress = :r",
+        ExpressionAttributeValues={
+            ':r': currentLevel
+        },
+        ReturnValues="UPDATED_NEW"
+    )

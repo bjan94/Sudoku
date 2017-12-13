@@ -1,5 +1,6 @@
 import numpy as np
 from Puzzles import *
+import itertools
 """
 Game logic
 
@@ -11,7 +12,8 @@ np.random.seed(42)
 numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 
-game_generator = (x for x in problemSet)
+def game_generator(level) :
+    return next(itertools.islice((z for z in problemSet), level, None))
 
 
 def generate_empty_game():

@@ -16,15 +16,18 @@ def index():
 
 
 @app.route('/login', methods=['POST'])
-def log_in() :
+def log_in():
     username = request.form.get('username', None)
-    pw = db.user_login(username)
-    if (not pw) :
+    user_info = db.user_login(username)
+    if (not user_info):
         flash('Incorrect username!')
         return redirect(url_for('index'))
 
-    if pw == request.form.get('password', None) :
-        session['username'] = username
+    if user_info['password'] == request.form.get('password', None):
+
+        session['username'] = user_info['user']
+        session['name'] = user_info['fullname']
+        session['progress'] = user_info['progress']
         return redirect('/main')
 
     flash("wrong login info")
@@ -43,6 +46,7 @@ def sign_up():
             db.add_user(username, password, fullname)
             session['username'] = username
             session['name'] = fullname
+            session['progress'] = '0'
             return redirect('/main')
 
         flash("you must complete all of the fields")
@@ -54,11 +58,12 @@ def game_page():
     if 'username' not in session :
         flash('log in first to play Sudoku!')
         return redirect(url_for('index'))
-    board = game.get_game(1)
 
+    #board = game.get_game(1)
+    board = game.game_generator(int(session['progress']))
+    print(board)
     return render_template('game.html',
                            fullname=session['name'], board=board)
-
 
 @app.route('/validate', methods=['POST'])
 def validate():
@@ -71,6 +76,15 @@ def validate():
     else:
         return jsonify(success=False)
 
+@app.route('/puzzleSolved', methods=['GET'])
+def get_next_puzzle():
+    if 'username' not in session:
+        redirect(url_for('index'))
+    nextLevel = int(session['progress']) + 1
+    session['progress'] = nextLevel
+    db.updateLevel(session['username'], str(nextLevel))
+    return redirect(url_for('game_page'))
+
 
 @app.route('/gethint', methods=['POST'])
 def hint():
@@ -80,6 +94,13 @@ def hint():
     solved = game.return_solved()
 
     return jsonify(answer=str(solved[i][j]))
+
+@app.route('/logout', methods=['GET'])
+def log_out():
+    if 'username' not in session:
+        return redirect(url_for('index'))
+    session.clear()
+    return redirect(url_for('index'))
 
 
 if __name__ == '__main__':
