@@ -6,20 +6,25 @@ $(document).ready(function() {
     $(".table-inner tr td").each(function(index, element) {
         if ($(this).text()) {
             $(this).css('background-color', '#A9C1C3');
+            $(this).addClass('immutable');
         }
     });
 
     $(".table-inner td").on('click', function() {
-        if ($(this).text() == '') {
+        if ($(this).text() == '' && number != 'delete') {
+            toggle($(this));
+        } else if ((!$(this).hasClass('immutable')) && number == 'delete') {
+            number = '';
             toggle($(this));
         }
     });
 
     $(".btn-secondary").on('click', function() {
-       number = $(this).text();
-       // $(this).toggleClass("btn-secondary btn-primary");
+        number = $(this).text();
+        // $(this).toggleClass("btn-secondary btn-primary");
     });
 });
+
 
 function toggle(element) {
    if (selected != undefined && selected != element) {
@@ -38,5 +43,5 @@ function toggle(element) {
 }
 
 function untoggle(element) {
-   element.css('background-color', 'white');
+    element.css('background-color', 'white');
 }

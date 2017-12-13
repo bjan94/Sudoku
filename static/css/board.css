@@ -8,7 +8,7 @@ table, th, td {
     width: 500px;
     position: relative;
     margin: auto auto;
-    margin-top: 10%;
+    margin-top: 5%;
 }
 
 .table-inner {
@@ -23,6 +23,15 @@ tr td {
 
 .btn-toolbar {
     position: relative;
+    margin-left: 33%;
+    margin-right: 33%;
+    margin-top: 50px;
+}
+
+.btn-group-vertical {
+    position: relative;
+    margin-left: 33%;
+    margin-right: 33%;
 }
 
 button {
