@@ -11,6 +11,9 @@ np.random.seed(42)
 numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 
+game_generator = (x for x in problemSet)
+
+
 def generate_empty_game():
     global game_board
     game_board = []
